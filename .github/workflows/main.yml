@@ -1,0 +1,27 @@
+name: Apagar Repositório
+
+on:
+  workflow_dispatch:
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # <-- dá permissão de escrita
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configurar identidade do Git
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "GitHub Actions"
+
+      - name: Remover todos os arquivos
+        run: |
+          git rm -rf .
+          git commit -m "Removendo todos os arquivos"
+          git push origin main
+
