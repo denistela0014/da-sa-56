@@ -1,0 +1,26 @@
+name: Replace Repository
+
+on: workflow_dispatch
+
+jobs:
+  replace:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repositório atual
+        uses: actions/checkout@v3
+
+      - name: Remover todos os arquivos
+        run: |
+          git rm -r *
+          git commit -m "Removendo arquivos antigos"
+
+      - name: Adicionar novos arquivos
+        run: |
+          # Copie ou gere aqui os novos arquivos que deseja colocar
+          echo "Novo conteúdo" > README.md
+          git add .
+          git commit -m "Adicionando novos arquivos"
+
+      - name: Push mudanças
+        run: |
+          git push origin HEAD:main
